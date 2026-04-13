@@ -17,6 +17,5 @@ public class CoffeeHouse {
         System.out.println("After decorating with double caramel");
         System.out.println(beverage.getBeverageName());
         System.out.println(beverage.getBeveragePrice());
-
     }
 }
