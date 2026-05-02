@@ -9,7 +9,7 @@ public class TokenBucket {
 
     public TokenBucket(int capacity, int refillRate) {
         this.capacity = capacity;
-        this.refillRate = capacity;
+        this.refillRate = refillRate;
         this.tokens = capacity;
         this.lastRefillTimestamp = System.nanoTime();
     }
