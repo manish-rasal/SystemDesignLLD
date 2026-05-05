@@ -1,8 +1,6 @@
 package main.java.LLD.ParkingLot;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 public class ParkingFloor {
     private final int level;
@@ -21,18 +19,30 @@ public class ParkingFloor {
     }
 
     public ParkingSpot assignSpot(Vehicle vehicle) {
-        SpotType compatible = switch (vehicle.getType()) {
-            case BIKE -> SpotType.SMALL;
-            case CAR -> SpotType.MEDIUM;
-            case TRUCK -> SpotType.LARGE;
-        };
+        List<SpotType> compatible = getCompatibleSpotTypes(vehicle);
 
-        Queue<ParkingSpot> available = availableSpots.get(compatible);
-        if(!available.isEmpty()) return available.poll();
+        for (SpotType type: compatible) {
+            Queue<ParkingSpot> available = availableSpots.get(type);
+            if(!available.isEmpty()) return available.poll();
+        }
+
         return null;
+    }
+
+    private List<SpotType> getCompatibleSpotTypes(Vehicle vehicle) {
+        List<SpotType> compatible = switch (vehicle.getType()) {
+            case BIKE -> Arrays.asList(SpotType.SMALL, SpotType.MEDIUM, SpotType.LARGE);
+            case CAR -> Arrays.asList(SpotType.MEDIUM, SpotType.LARGE);
+            case TRUCK -> Arrays.asList(SpotType.LARGE);
+        };
+        return compatible;
     }
 
     public void releaseSpot(ParkingSpot parkingSpot) {
         availableSpots.get(parkingSpot.getType()).add(parkingSpot);
+    }
+
+    public int getLevel() {
+        return level;
     }
 }

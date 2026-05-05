@@ -2,21 +2,21 @@ package main.java.LLD.ParkingLot;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.util.List;
+import java.util.HashMap;
 
 public class ParkingLot {
-    private List<ParkingFloor> parkingFloors;
+    private HashMap<Integer, ParkingFloor> parkingFloors;
 
-    public ParkingLot(List<ParkingFloor> floors) {
+    public ParkingLot(HashMap<Integer, ParkingFloor> floors) {
         this.parkingFloors = floors;
     }
 
     public Ticket park(Vehicle vehicle) {
-        for(ParkingFloor floor: parkingFloors) {
+        for(ParkingFloor floor: parkingFloors.values()) {
             ParkingSpot spot = floor.assignSpot(vehicle);
             if(spot != null) {
                 spot.park(vehicle);
-                return new Ticket(vehicle, spot);
+                return new Ticket(spot, floor.getLevel());
             }
         }
 
@@ -24,11 +24,10 @@ public class ParkingLot {
     }
 
     public void releaseSpot(Ticket ticket) {
+        int level = ticket.getFloor();
         ParkingSpot spot = ticket.getSpot();
         spot.freeSpot();
-        for(ParkingFloor floor: parkingFloors) {
-            floor.releaseSpot(spot);
-        }
+        parkingFloors.get(level).releaseSpot(spot);
     }
 
     public double calculateFees(Ticket ticket) {

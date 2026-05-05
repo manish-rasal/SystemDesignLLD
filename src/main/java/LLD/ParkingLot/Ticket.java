@@ -5,13 +5,13 @@ import java.util.UUID;
 
 public class Ticket {
     private final String  id;
-    private final Vehicle vehicle;
     private final ParkingSpot spot;
     private final Instant entryTime;
+    private final int floor;
     private TicketStatus status;
 
-    public Ticket(Vehicle vehicle, ParkingSpot spot) {
-        this.vehicle = vehicle;
+    public Ticket(ParkingSpot spot, int floor) {
+        this.floor = floor;
         this.spot = spot;
         this.id = UUID.randomUUID().toString();
         this.entryTime = Instant.now();
@@ -28,5 +28,9 @@ public class Ticket {
 
     public Instant getEntryTime() {
         return entryTime;
+    }
+
+    public int getFloor() {
+        return floor;
     }
 }

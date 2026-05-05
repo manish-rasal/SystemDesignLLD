@@ -11,20 +11,12 @@ public class ParkingSpot {
         this.type = type;
     }
 
-    public boolean isAvailable() {
-        return vehicle == null;
-    }
-
     public void freeSpot() {
         vehicle = null;
     }
 
     public void park(Vehicle vehicle) {
         this.vehicle = vehicle;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public SpotType getType() {

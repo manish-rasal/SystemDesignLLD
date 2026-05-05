@@ -1,5 +1,6 @@
 package main.java.LLD.ParkingLot;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class Main {
@@ -10,8 +11,11 @@ public class Main {
                 new ParkingSpot(1, SpotType.MEDIUM)
         );
 
+        HashMap<Integer, ParkingFloor> floors = new HashMap<>();
+        floors.put(1, floor);
+
         ParkingLot lot =
-                new ParkingLot(List.of(floor));
+                new ParkingLot(floors);
 
         EntryGate entryGate =
                 new EntryGate(lot);
